@@ -2,13 +2,12 @@
   ROOT VARIABLES
 ---------------------------------------*/
 :root {
-  --bg-dark: #0a0f1c;
-  --panel-dark: #1f2833;
-  --accent: #64ffda;
-  --highlight: #ff5c5c;
-  --text-light: #ccd6f6;
-  --border-light: rgba(255, 255, 255, 0.1);
-  --gold: #d4af37;
+  --bg-dark: #0d0d0d;
+  --panel-dark: #1f1f1f;
+  --accent: #ff007f;        /* Neon Pink */
+  --secondary: #00ffe7;     /* Neon Cyan */
+  --text-light: #f0f0f0;
+  --border-light: rgba(255, 0, 127, 0.2);
   --transition-fast: 0.2s ease-in-out;
   --max-width: 1200px;
 }
@@ -39,7 +38,7 @@ a {
   transition: color var(--transition-fast);
 }
 a:hover {
-  color: var(--highlight);
+  color: var(--secondary);
 }
 
 /* BUTTONS */
@@ -52,13 +51,14 @@ a:hover {
   transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 .btn-primary {
-  background-color: var(--gold);
+  background-color: var(--accent);
   border: none;
   color: var(--bg-dark);
 }
 .btn-primary:hover {
-  background-color: var(--highlight);
-  color: #fff;
+  background-color: var(--secondary);
+  color: var(--bg-dark);
+  box-shadow: 0 0 8px var(--secondary), 0 0 16px var(--secondary);
 }
 .btn-outline {
   background-color: transparent;
@@ -68,6 +68,7 @@ a:hover {
 .btn-outline:hover {
   background-color: var(--accent);
   color: var(--bg-dark);
+  box-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent);
 }
 
 /* INPUTS & TEXTAREAS */
@@ -77,7 +78,7 @@ textarea {
   padding: 0.6rem;
   margin-top: 0.3rem;
   margin-bottom: 1rem;
-  border: 1px solid rgba(197, 198, 199, 0.3);
+  border: 1px solid rgba(255, 0, 127, 0.3);
   border-radius: 4px;
   background-color: var(--panel-dark);
   color: var(--text-light);
@@ -89,7 +90,7 @@ textarea:focus {
   border-color: var(--accent);
 }
 .input-readonly {
-  background-color: rgba(197, 198, 199, 0.1);
+  background-color: rgba(255, 0, 127, 0.1);
 }
 
 /*---------------------------------------
@@ -99,7 +100,7 @@ textarea:focus {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: rgba(10, 15, 28, 0.95);
+  background-color: rgba(13, 13, 13, 0.95);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -109,7 +110,7 @@ textarea:focus {
 }
 .logo {
   font-size: 1.5rem;
-  color: var(--highlight);
+  color: var(--secondary);
   font-weight: bold;
 }
 .nav-links {
@@ -151,11 +152,12 @@ textarea:focus {
 .hero {
   position: relative;
   height: 80vh;
-  background: url('https://i.imgur.com/2RkTzM9.jpg') center/cover no-repeat;
+  background: linear-gradient(135deg, #220022 0%, #0d0d0d 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-light);
+  text-align: center;
 }
 .hero-overlay {
   position: absolute;
@@ -163,19 +165,18 @@ textarea:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(10, 15, 28, 0.75);
+  background-color: rgba(13, 13, 13, 0.85);
 }
 .hero-content {
   position: relative;
   z-index: 1;
-  text-align: center;
   padding: 0 1rem;
 }
 .hero-title {
   font-size: 3rem;
-  color: var(--gold);
+  color: var(--secondary);
   margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  text-shadow: 2px 2px 6px rgba(0,255,231,0.5);
 }
 .hero-subtitle {
   max-width: 600px;
@@ -195,7 +196,7 @@ textarea:focus {
   border: 1px solid var(--border-light);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 18px rgba(0, 255, 204, 0.2);
+  box-shadow: 0 0 18px rgba(255, 0, 127, 0.2);
 }
 .slider {
   display: flex;
@@ -205,8 +206,9 @@ textarea:focus {
 .slide {
   flex: 1 0 100%;
   padding: 40px 20px;
-  color: var(--text-light);
   text-align: center;
+  color: var(--text-light);
+  background: linear-gradient(135deg, #0d001f 0%, #1f001f 100%);
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 0.4s ease, transform 0.4s ease;
@@ -267,7 +269,7 @@ textarea:focus {
   border-radius: 8px;
   border: 1px solid var(--border-light);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  min-height: 280px; /* uniform height */
+  min-height: 280px;
 }
 .product-card:hover {
   transform: scale(1.03);
@@ -282,7 +284,7 @@ textarea:focus {
   font-size: 0.95rem;
   margin-bottom: 1rem;
   line-height: 1.4;
-  flex-grow: 1; /* push button to bottom */
+  flex-grow: 1;
 }
 
 /*---------------------------------------
@@ -333,7 +335,7 @@ textarea:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(11, 12, 16, 0.8);
+  background-color: rgba(13, 13, 13, 0.8);
 }
 .modal-content {
   position: relative;
@@ -405,5 +407,8 @@ textarea:focus {
   }
   .product-card {
     min-height: 260px;
+  }
+  .nav-links {
+    gap: 1rem;
   }
 }
