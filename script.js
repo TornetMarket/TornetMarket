@@ -1,4 +1,4 @@
- // Sample product data (customize as needed)
+// Sample product data (customize as needed)
 const products = [
   {
     id: 'script1',
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slide.classList.toggle('active', i === index);
       dots[i].classList.toggle('active', i === index);
     });
-    const offset = -index * 100;
+    const offset = -index * 100; // each slide = 100%
     document.querySelector('.slider').style.transform = `translateX(${offset}%)`;
   }
 
