@@ -1,1 +1,409 @@
+/*---------------------------------------
+  ROOT VARIABLES
+---------------------------------------*/
+:root {
+  --bg-dark: #0a0f1c;
+  --panel-dark: #1f2833;
+  --accent: #64ffda;
+  --highlight: #ff5c5c;
+  --text-light: #ccd6f6;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --gold: #d4af37;
+  --transition-fast: 0.2s ease-in-out;
+  --max-width: 1200px;
+}
 
+/*---------------------------------------
+  RESET & BASE
+---------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+}
+
+/* LINKS */
+a {
+  text-decoration: none;
+  color: var(--accent);
+  transition: color var(--transition-fast);
+}
+a:hover {
+  color: var(--highlight);
+}
+
+/* BUTTONS */
+.btn {
+  font-family: 'Source Code Pro', monospace;
+  text-transform: uppercase;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.btn-primary {
+  background-color: var(--gold);
+  border: none;
+  color: var(--bg-dark);
+}
+.btn-primary:hover {
+  background-color: var(--highlight);
+  color: #fff;
+}
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+.btn-outline:hover {
+  background-color: var(--accent);
+  color: var(--bg-dark);
+}
+
+/* INPUTS & TEXTAREAS */
+input,
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(197, 198, 199, 0.3);
+  border-radius: 4px;
+  background-color: var(--panel-dark);
+  color: var(--text-light);
+  font-family: inherit;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.input-readonly {
+  background-color: rgba(197, 198, 199, 0.1);
+}
+
+/*---------------------------------------
+  NAVBAR
+---------------------------------------*/
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(10, 15, 28, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 999;
+  border-bottom: 1px solid var(--border-light);
+}
+.logo {
+  font-size: 1.5rem;
+  color: var(--highlight);
+  font-weight: bold;
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.nav-link {
+  color: var(--text-light);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent);
+}
+
+/*---------------------------------------
+  SECTIONS & ANIMATIONS
+---------------------------------------*/
+.section {
+  display: none;
+  padding: 100px 20px 60px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.section.active {
+  display: block;
+  animation: fadeIn 0.6s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/*---------------------------------------
+  HERO (HOME)
+---------------------------------------*/
+.hero {
+  position: relative;
+  height: 80vh;
+  background: url('https://i.imgur.com/2RkTzM9.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+}
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 15, 28, 0.75);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 1rem;
+}
+.hero-title {
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+.hero-subtitle {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/*---------------------------------------
+  FEATURED SLIDESHOW
+---------------------------------------*/
+.product-showcase {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 2rem auto 4rem;
+  background: var(--panel-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(0, 255, 204, 0.2);
+}
+.slider {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  width: 300%;
+}
+.slide {
+  flex: 1 0 100%;
+  padding: 40px 20px;
+  color: var(--text-light);
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+.slide h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+.slide p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.dots {
+  text-align: center;
+  margin: 12px 0;
+}
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 6px;
+  background-color: #555;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+.dot.active {
+  background-color: var(--accent);
+}
+
+/*---------------------------------------
+  MARKETPLACE
+---------------------------------------*/
+.section-title {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 2.5rem;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.product-card {
+  background-color: var(--panel-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 280px; /* uniform height */
+}
+.product-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent);
+}
+.product-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+.product-card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  flex-grow: 1; /* push button to bottom */
+}
+
+/*---------------------------------------
+  ABOUT
+---------------------------------------*/
+.about-text {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/*---------------------------------------
+  CONTACT
+---------------------------------------*/
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.contact-form label span {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.contact-form textarea {
+  resize: vertical;
+}
+
+/*---------------------------------------
+  MODAL
+---------------------------------------*/
+.modal.hidden {
+  display: none;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+}
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 12, 16, 0.8);
+}
+.modal-content {
+  position: relative;
+  background-color: var(--panel-dark);
+  width: 90%;
+  max-width: 400px;
+  margin: 6rem auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 12px var(--accent);
+  z-index: 1;
+}
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.modal-close:hover {
+  color: var(--accent);
+}
+.request-form label span {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.request-form textarea {
+  resize: vertical;
+}
+
+/*---------------------------------------
+  FOOTER
+---------------------------------------*/
+.footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border-light);
+  margin-top: 2rem;
+  color: #777;
+}
+
+/*---------------------------------------
+  MEDIA QUERIES
+---------------------------------------*/
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .slide {
+    padding: 30px 10px;
+  }
+  .slide h2 {
+    font-size: 1.5rem;
+  }
+  .slide p {
+    font-size: 0.95rem;
+  }
+  .product-card {
+    min-height: 260px;
+  }
+}
