@@ -1,4 +1,4 @@
-// Sample product data (customize as needed)
+ // Sample product data (customize as needed)
 const products = [
   {
     id: 'script1',
