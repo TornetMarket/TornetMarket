@@ -2,12 +2,11 @@
   ROOT VARIABLES
 ---------------------------------------*/
 :root {
-  --bg-dark: #0d0d0d;
-  --panel-dark: #1f1f1f;
-  --accent: #ff007f;        /* Neon Pink */
-  --secondary: #00ffe7;     /* Neon Cyan */
-  --text-light: #f0f0f0;
-  --border-light: rgba(255, 0, 127, 0.2);
+  --bg-dark: #1f1f1f;         /* Dark gray background */
+  --panel-dark: #282828;      /* Slightly lighter panel */
+  --accent: #47bfff;          /* Light blue accent */
+  --text-light: #ffffff;      /* White text */
+  --border-light: rgba(71, 191, 255, 0.2);
   --transition-fast: 0.2s ease-in-out;
   --max-width: 1200px;
 }
@@ -20,15 +19,23 @@
   padding: 0;
   box-sizing: border-box;
 }
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+html, body {
+  height: 100%;
 }
 body {
+  display: flex;
+  flex-direction: column;
   background-color: var(--bg-dark);
   color: var(--text-light);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden;
+}
+
+/* MAIN CONTENT FLEXIBLE AREA */
+.main-content {
+  flex: 1;
+  padding-top: 80px;          /* leave space for fixed navbar */
+  padding-bottom: 60px;       /* leave space for fixed footer */
 }
 
 /* LINKS */
@@ -38,7 +45,7 @@ a {
   transition: color var(--transition-fast);
 }
 a:hover {
-  color: var(--secondary);
+  color: #ffffff;
 }
 
 /* BUTTONS */
@@ -56,9 +63,9 @@ a:hover {
   color: var(--bg-dark);
 }
 .btn-primary:hover {
-  background-color: var(--secondary);
+  background-color: #7ed2ff;
   color: var(--bg-dark);
-  box-shadow: 0 0 8px var(--secondary), 0 0 16px var(--secondary);
+  box-shadow: 0 0 8px #7ed2ff, 0 0 16px #7ed2ff;
 }
 .btn-outline {
   background-color: transparent;
@@ -78,7 +85,7 @@ textarea {
   padding: 0.6rem;
   margin-top: 0.3rem;
   margin-bottom: 1rem;
-  border: 1px solid rgba(255, 0, 127, 0.3);
+  border: 1px solid rgba(71, 191, 255, 0.3);
   border-radius: 4px;
   background-color: var(--panel-dark);
   color: var(--text-light);
@@ -90,7 +97,7 @@ textarea:focus {
   border-color: var(--accent);
 }
 .input-readonly {
-  background-color: rgba(255, 0, 127, 0.1);
+  background-color: rgba(71, 191, 255, 0.1);
 }
 
 /*---------------------------------------
@@ -100,27 +107,82 @@ textarea:focus {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: rgba(13, 13, 13, 0.95);
+  background-color: rgba(31, 31, 31, 0.95);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   z-index: 999;
   border-bottom: 1px solid var(--border-light);
 }
-.logo {
-  font-size: 1.5rem;
-  color: var(--secondary);
-  font-weight: bold;
+
+/* Left‑aligned 3D “Tornet Market” text.
+   Removed the fixed width so it can fully contain itself
+   during the entire 3D rotation. */
+#logo-3d-container {
+  position: relative;
+  /* no fixed width—we let it size to the text */
+  height: 50px;
+  perspective: 800px;
+  flex-shrink: 0;
 }
+#logo-3d {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transform: translateY(-50%) rotateY(0deg);
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow:
+    1px 0 var(--panel-dark),
+    2px 0 var(--panel-dark),
+    3px 0 var(--panel-dark),
+    4px 0 var(--panel-dark),
+    5px 0 var(--panel-dark),
+    6px 0 var(--panel-dark),
+    7px 0 var(--panel-dark),
+    8px 0 var(--panel-dark),
+    0 0 4px var(--accent),
+    0 0 8px var(--accent);
+  white-space: nowrap;
+  animation: none
+}
+@keyframes spinLogo {
+  from { transform: translateY(-50%) rotateY(0deg); }
+  to   { transform: translateY(-50%) rotateY(-360deg); }
+}
+
+/* Hamburger icon (hidden by default, visible on mobile) */
+#hamburger {
+  display: none;
+  flex-shrink: 0;
+  cursor: pointer;
+  margin-left: auto;
+}
+#hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px 0;
+  background-color: var(--text-light);
+  transition: background-color var(--transition-fast);
+}
+
+/* Navigation links (desktop) */
 .nav-links {
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  gap: 1rem;
+  margin-left: auto;
+  position: relative; /* keep it above any overlapping GIF */
+  z-index: 1100;
 }
 .nav-link {
   color: var(--text-light);
   font-weight: 500;
+  font-size: 0.9rem;
   transition: color var(--transition-fast);
 }
 .nav-link:hover,
@@ -129,13 +191,57 @@ textarea:focus {
 }
 
 /*---------------------------------------
+  MARKETPLACE (equal‑height cards)
+---------------------------------------*/
+.product-card {
+  background-color: var(--panel-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  /* fixed height instead of min-height */
+  height: 260px;
+}
+.product-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
+}
+.product-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+.product-card p {
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+
+/*---------------------------------------
+  NAVBAR GIF (CENTERED)
+---------------------------------------*/
+.nav-gif-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 110px;       /* smaller than original so it fits comfortably */
+  width: auto;
+  pointer-events: none; /* let clicks “pass through” */
+  z-index: 1000;       /* between #logo-3d and .nav-links */
+}
+
+/*---------------------------------------
   SECTIONS & ANIMATIONS
 ---------------------------------------*/
 .section {
   display: none;
-  padding: 100px 20px 60px;
-  max-width: var(--max-width);
-  margin: 0 auto;
+  padding: 0; /* actual padding inside each component */
 }
 .section.active {
   display: block;
@@ -151,8 +257,9 @@ textarea:focus {
 ---------------------------------------*/
 .hero {
   position: relative;
-  height: 80vh;
-  background: linear-gradient(135deg, #220022 0%, #0d0d0d 100%);
+  margin-bottom: 1rem;     /* shorter margin so slideshow sits higher */
+  height: 45vh;            /* as per user’s change */
+  background: linear-gradient(135deg, #1f1f1f 0%, #282828 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +272,7 @@ textarea:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(13, 13, 13, 0.85);
+  background-color: rgba(31, 31, 31, 0.85);
 }
 .hero-content {
   position: relative;
@@ -173,15 +280,14 @@ textarea:focus {
   padding: 0 1rem;
 }
 .hero-title {
-  font-size: 3rem;
-  color: var(--secondary);
+  font-size: 2.5rem;
+  color: var(--accent);
   margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 6px rgba(0,255,231,0.5);
 }
 .hero-subtitle {
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  font-size: 1.2rem;
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -191,24 +297,24 @@ textarea:focus {
 .product-showcase {
   width: 100%;
   max-width: var(--max-width);
-  margin: 2rem auto 4rem;
+  margin: 0 auto 3rem;
   background: var(--panel-dark);
   border: 1px solid var(--border-light);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 18px rgba(255, 0, 127, 0.2);
+  box-shadow: 0 0 18px rgba(71, 191, 255, 0.2);
 }
 .slider {
   display: flex;
+  width: 300%;              /* three slides ⇒ 300% total */
   transition: transform 0.6s ease-in-out;
-  width: 300%;
 }
 .slide {
-  flex: 1 0 100%;
-  padding: 40px 20px;
+  flex: 0 0 33.3333%;       /* each slide is 1/3 of container */
+  padding: 30px 15px;
   text-align: center;
   color: var(--text-light);
-  background: linear-gradient(135deg, #0d001f 0%, #1f001f 100%);
+  background: #282828;
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 0.4s ease, transform 0.4s ease;
@@ -219,22 +325,22 @@ textarea:focus {
 }
 .slide h2 {
   margin-bottom: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: var(--accent);
 }
 .slide p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin-bottom: 1rem;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 .dots {
   text-align: center;
-  margin: 12px 0;
+  margin: 10px 0;
 }
 .dot {
-  height: 12px;
-  width: 12px;
-  margin: 0 6px;
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
   background-color: #555;
   border-radius: 50%;
   display: inline-block;
@@ -246,43 +352,82 @@ textarea:focus {
 }
 
 /*---------------------------------------
-  MARKETPLACE
+  MARKETPLACE (FILTER + NEATER LAYOUT)
 ---------------------------------------*/
+#market {
+  padding: 0 1rem; /* horizontal padding so content never touches window edges */
+}
+
+.filter-container {
+  max-width: var(--max-width);
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: center;   /* centered under “Marketplace” */
+  align-items: center;
+}
+.filter-label {
+  margin-right: 0.5rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1rem;
+  color: var(--text-light);
+}
+.filter-select {
+  background-color: var(--panel-dark);
+  color: var(--text-light);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.filter-select:hover,
+.filter-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  outline: none;
+}
+
 .section-title {
   font-family: 'Source Code Pro', monospace;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--accent);
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin: 1rem 0;
 }
+
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
 }
+
+/* Force every card to the same fixed height, so they remain uniform: */
 .product-card {
   background-color: var(--panel-dark);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.5rem;
-  border-radius: 8px;
+  padding: 1rem;
+  border-radius: 6px;
   border: 1px solid var(--border-light);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  min-height: 280px;
+  height: 260px;     /* fixed height for uniform panels */
 }
 .product-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent);
+  transform: scale(1.02);
+  box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
 }
 .product-card h3 {
   margin-bottom: 0.5rem;
   color: var(--accent);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 .product-card p {
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
   line-height: 1.4;
   flex-grow: 1;
 }
@@ -291,9 +436,9 @@ textarea:focus {
   ABOUT
 ---------------------------------------*/
 .about-text {
-  max-width: 700px;
-  margin: 0 auto;
-  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   text-align: center;
 }
@@ -302,8 +447,8 @@ textarea:focus {
   CONTACT
 ---------------------------------------*/
 .contact-form {
-  max-width: 500px;
-  margin: 0 auto;
+  max-width: 450px;
+  margin: 0 auto 3rem;
 }
 .contact-form label span {
   display: block;
@@ -335,24 +480,24 @@ textarea:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(13, 13, 13, 0.8);
+  background-color: rgba(31, 31, 31, 0.8);
 }
 .modal-content {
   position: relative;
   background-color: var(--panel-dark);
   width: 90%;
-  max-width: 400px;
-  margin: 6rem auto;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 0 12px var(--accent);
+  max-width: 350px;
+  margin: 5rem auto;
+  padding: 1.2rem;
+  border-radius: 6px;
+  box-shadow: 0 0 10px var(--accent);
   z-index: 1;
 }
 .modal-close {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  font-size: 1.5rem;
+  top: 0.4rem;
+  right: 0.4rem;
+  font-size: 1.4rem;
   background: transparent;
   border: none;
   color: var(--text-light);
@@ -373,42 +518,360 @@ textarea:focus {
 }
 
 /*---------------------------------------
-  FOOTER
+  FOOTER (FIXED AT BOTTOM)
 ---------------------------------------*/
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--panel-dark);
   text-align: center;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   border-top: 1px solid var(--border-light);
-  margin-top: 2rem;
   color: #777;
+  z-index: 500;
 }
 
 /*---------------------------------------
-  MEDIA QUERIES
+  MEDIA QUERIES (≤600px)
 ---------------------------------------*/
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.2rem;
+@media (max-width: 600px) {
+  /* Navbar: stack vertically and center */
+
+  .nav-gif-logo {
+    top: 63%;  /* instead of 50% */
   }
-  .hero-subtitle {
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    text-align: center;
+  }
+  #logo-3d-container {
+    width: 120px;
+    height: 30px;
+    margin-bottom: 0.5rem;
+    perspective: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Stop spinning on mobile */
+  #logo-3d {
+    top: 0.4rem;
     font-size: 1rem;
+    animation: none;
+    text-shadow:
+      1px 0 var(--panel-dark),
+      2px 0 var(--panel-dark),
+      3px 0 var(--panel-dark),
+      4px 0 var(--panel-dark),
+      5px 0 var(--panel-dark),
+      6px 0 var(--panel-dark),
+      7px 0 var(--panel-dark),
+      8px 0 var(--panel-dark),
+      0 0 4px var(--accent),
+      0 0 6px var(--accent);
   }
-  .section-title {
-    font-size: 2rem;
-  }
-  .slide {
-    padding: 30px 10px;
-  }
-  .slide h2 {
-    font-size: 1.5rem;
-  }
-  .slide p {
-    font-size: 0.95rem;
-  }
-  .product-card {
-    min-height: 260px;
+
+  /* Show hamburger, hide nav-links by default */
+  #hamburger {
+    display: block;
   }
   .nav-links {
-    gap: 1rem;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--panel-dark);
   }
+  .nav-links.open {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-light);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 1100;
+  }
+  .nav-link {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  /* Hero adjustments */
+  .hero {
+    height: 50vh; /* slightly taller on narrow screens */
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin: 0 auto 1rem;
+  }
+  .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Slideshow adjustments */
+  .product-showcase {
+    margin: 1rem auto 2rem;
+  }
+  .slide {
+    padding: 20px 10px;
+  }
+  .slide h2 {
+    font-size: 1.3rem;
+  }
+  .slide p {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  .dot {
+    height: 8px;
+    width: 8px;
+    margin: 0 4px;
+  }
+
+  /* Marketplace adjustments */
+  #market {
+    padding: 0 0.5rem;
+  }
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 0.75rem;
+  }
+  .filter-label {
+    margin-right: 0;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  .filter-select {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.8rem;
+  }
+  .product-card {
+    height: 220px;
+    padding: 0.8rem;
+  }
+  .product-card h3 {
+    font-size: 1rem;
+  }
+  .product-card p {
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  /* About adjustments */
+  .about-text {
+    font-size: 0.9rem;
+  }
+
+  /* Contact adjustments */
+  input,
+  textarea {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+  .btn-outline {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Modal adjustments */
+  .modal-content {
+    margin: 3rem auto;
+    padding: 1rem;
+  }
+  .modal-close {
+    font-size: 1.2rem;
+  }
+}
+
+/* Full‐screen, semi‐transparent overlay */
+.update-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 31, 31, 0.85);
+  z-index: 2000;
+  display: none; /* hidden by default */
+}
+
+/* Centered popup container */
+.update-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--panel-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 0 16px rgba(71, 191, 255, 0.3);
+  width: 90%;
+  max-width: 400px;
+  padding: 1.5rem;
+  color: var(--text-light);
+  z-index: 2100;
+  display: none; /* hidden by default */
+}
+
+/* Title inside the popup */
+.update-popup h3 {
+  margin-bottom: 0.75rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1.25rem;
+  color: var(--accent);
+  text-align: center;
+}
+
+/* Scrollable area for the content in case it grows */
+.update-popup .popup-content {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+/* Close button in top-right corner */
+.update-popup .popup-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 24px;
+  height: 24px;
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.update-popup .popup-close:hover {
+  color: var(--accent);
+}
+
+/* A simple “OK” button at bottom */
+.update-popup .popup-ok {
+  display: block;
+  margin: 0.5rem auto 0;
+  padding: 0.5rem 1rem;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.95rem;
+  background-color: var(--accent);
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.update-popup .popup-ok:hover {
+  background-color: #7ed2ff;
+  box-shadow: 0 0 8px #7ed2ff, 0 0 12px #7ed2ff;
+}
+
+/*---------------------------------------
+  INTEL PAGE LAYOUT
+---------------------------------------*/
+.intel-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: var(--max-width);
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+}
+
+.intel-subtitle {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1.25rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.site-updates,
+.news-feed {
+  background-color: var(--panel-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 12px rgba(71, 191, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 350px; /* fixed height; adjust as desired */
+}
+
+.update-list,
+.news-list {
+  list-style: none;
+  overflow-y: auto;
+  padding-left: 0;
+  margin: 0;
+}
+
+.update-list li,
+.news-list li {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.update-list li:last-child,
+.news-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* On very narrow screens, stack the two columns */
+@media (max-width: 800px) {
+  .intel-container {
+    grid-template-columns: 1fr;
+  }
+  .site-updates,
+  .news-feed {
+    height: auto;   /* let content grow naturally */
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* secondary button style */
+.btn-secondary {
+  background-color: var(--panel-dark);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+.btn-secondary:hover {
+  background-color: var(--accent);
+  color: var(--bg-dark);
+  box-shadow: 0 0 6px var(--accent);
 }
