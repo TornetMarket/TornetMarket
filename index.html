@@ -7,96 +7,275 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="logo">Tornet Market</div>
+  <div id="logo-3d-container">
+    <div id="logo-3d">Tornet Market</div>
+  </div>
+
+    <!-- 2) centered GIF logo -->
+  <img src="tornetlogo.gif" alt="Tornet Market Logo" class="nav-gif-logo">
+
+    <!-- Hamburger icon (visible on mobile only) -->
+    <div id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation Links -->
     <div class="nav-links">
       <a href="#" data-page="home" class="nav-link active">Home</a>
+      <a href="#" data-page="intel" class="nav-link">Intel</a>
+      <a href="#" data-page="guide" class="nav-link">Guides</a>
       <a href="#" data-page="market" class="nav-link">Marketplace</a>
       <a href="#" data-page="about" class="nav-link">About</a>
       <a href="#" data-page="contact" class="nav-link">Contact</a>
+      <a href="#" data-page="logout" class="nav-link">Login</a>
     </div>
   </nav>
 
-  <!-- HOME SECTION -->
-  <section id="home" class="section active">
-    <div class="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">Built by a Hacker. Powered by Code.</h1>
-        <p class="hero-subtitle">
-          Welcome to Tornet Market — your gateway to powerful, exclusive software tools.
-          Curated, built, and secured by a full‑stack hacker‑turned‑entrepreneur.
-        </p>
-        <button class="btn btn-primary" data-page="market">See More →</button>
-      </div>
-    </div>
-
-    <!-- FEATURED SLIDESHOW -->
-    <div class="product-showcase">
-      <div class="slider">
-        <div class="slide active" data-id="soft1">
-          <h2>PhantomScanner Pro</h2>
-          <p>Advanced zero‑day vulnerability scanner trusted by top red teams.</p>
-          <button class="btn btn-primary request-btn" data-id="soft1">Request Product</button>
-        </div>
-        <div class="slide" data-id="script1">
-          <h2>Auto Recon Script</h2>
-          <p>Automates reconnaissance tasks in one click—save hours instantly.</p>
-          <button class="btn btn-primary request-btn" data-id="script1">Request Product</button>
-        </div>
-        <div class="slide" data-id="hack1">
-          <h2>GhostShell Framework</h2>
-          <p>Modular exploitation framework for professional pentesters.</p>
-          <button class="btn btn-primary request-btn" data-id="hack1">Request Product</button>
+  <!-- MAIN CONTENT WRAPPER -->
+  <main class="main-content">
+    <!-- HOME SECTION -->
+    <section id="home" class="section active">
+      <div class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1 class="hero-title">Enter the New Age of Technology</h1>
+          <p class="hero-subtitle">
+            Private. Secure. Always ahead.<br>
+            The marketplace for new ideas, tools, and tomorrow’s tech.
+          </p>
+          <button class="btn btn-primary" data-page="market">
+            Browse catalog →
+          </button>
         </div>
       </div>
-      <div class="dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+
+      <!-- FEATURED SLIDESHOW -->
+      <div class="product-showcase">
+        <div class="slider">
+          <!-- Hacking Tool 1 -->
+          <div class="slide active" data-id="hack1">
+            <h2>GhostShell Framework</h2>
+            <p>
+              Post-exploitation and lateral movement toolkit. Integrates with Cobalt Strike and Empire for custom operator workflows.
+              Supports pivoting, privilege escalation, shellcode injection, and persistence modules—100% OPSEC safe.
+            </p>
+            <button class="btn btn-primary request-btn" data-id="hack1">Request Product</button>
+          </div>
+          <!-- Hacking Tool 2 -->
+          <div class="slide" data-id="hack2">
+            <h2>Nighthawk Stealthsuite</h2>
+            <p>
+              Comprehensive evasion suite for red teamers.<br>
+              Includes signatureless process injection, AMSI and ETW bypass, modular droppers, and encrypted C2 traffic.
+              Built for stealth operations where detection is not an option.
+            </p>
+            <button class="btn btn-primary request-btn" data-id="hack2">Request Product</button>
+          </div>
+          <!-- Software Tool 1 -->
+          <div class="slide" data-id="soft1">
+            <h2>PhantomScanner Pro</h2>
+            <p>
+              High-speed vulnerability scanner featuring authenticated and unauthenticated network assessments,
+              SMB/LDAP/WinRM enumeration, and custom exploit modules. JSON, Nessus, and CSV export supported for easy reporting.
+            </p>
+            <button class="btn btn-primary request-btn" data-id="soft1">Request Product</button>
+          </div>
+          <!-- Gadget/Gizmo 5 -->
+          <div class="slide" data-id="giz5">
+            <h2>Signal Jammer Pro</h2>
+            <p>
+              Field-grade SDR jammer with adjustable output, targeting WiFi (2.4/5GHz), BLE, and GSM bands.
+              Useful for red team exfil tests and physical security assessments. Discrete form factor—portable and rechargeable.
+            </p>
+            <button class="btn btn-primary request-btn" data-id="giz5">Request Product</button>
+          </div>
+          <!-- Gadget/Gizmo 1 -->
+          <div class="slide" data-id="giz7">
+            <h2>BlackTunnel VPN Router</h2>
+            <p>
+              OpenWRT-based hardware router pre-configured with WireGuard and OpenVPN, automatic kill-switch, and Tor fallback.
+              Hotspot mode for field ops and USB-powered for rapid deployment during onsite engagements.
+            </p>
+            <button class="btn btn-primary request-btn" data-id="giz7">Request Product</button>
+          </div>
+          <!-- Gadget/Gizmo 2 -->
+          <div class="slide" data-id="script5">
+            <h2>Flipper Zero Traffic Light Controller</h2>
+            <p>
+              Send crafted RF signals to manipulate vulnerable traffic light systems via Flipper Zero. Protocols reverse-engineered for field testing.
+            </p>
+            <button class="btn btn-primary request-btn" data-id="script5">Request Product</button>
+          </div>
+        </div>
+        <div class="dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
       </div>
+      </section>
+
+    <!-- MARKETPLACE SECTION -->
+    <section id="market" class="section">
+      <h2 class="section-title">Marketplace</h2>
+      <!-- Filter Dropdown -->
+      <div class="filter-container">
+        <label class="filter-label">Category:</label>
+        <select id="filter-select" class="filter-select">
+          <option value="all">All</option>
+          <option value="top-selling">Top Selling</option>
+          <option value="websites">Websites</option>
+          <option value="software">Software</option>
+          <option value="scripts">Scripts</option>
+          <option value="gizmos">Gizmos</option>
+        </select>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="products" id="products-grid">
+        <!-- JavaScript will inject product cards here -->
+      </div>
+    </section>
+
+<!-- ABOUT SECTION -->
+<section id="about" class="section">
+  <h2 class="section-title">About the Founder</h2>
+  <p class="about-text">
+    <strong>UnknownBlackHat</strong> (also known as <strong>Richie</strong> and <strong>swiping.cc</strong>) is a respected full stack developer and security expert with deep roots in the underground hacking scene. After partnering with both major companies and covert collectives, Richie has proven skills in offensive security, custom tool creation, and high-impact marketplace development.<br><br>
+
+    He has completed hundreds of bug bounties and private exploits, earning recognition as a trusted operator in the vulnerability research and penetration testing world. Richie was a core developer on the legendary Silk Road marketplace, and is the creator of <strong>Tornet Market</strong> and <strong>Richie's Marketplace</strong>, trusted hubs for digital professionals and freedom-seeking coders.<br><br>
+
+    With a background straddling both corporate and street-level cyber operations, Richie launched Tornet Market to empower a new era of hackers, developers, and curious minds. Whether you’re just starting out and need genuine resources and guidance—or you’re an advanced operator looking for top-tier, exclusive tools and exploits—Tornet Market exists to connect you with the best.<br><br>
+
+    Here, you’ll find more than software: you’ll find a community, curated knowledge, and high-grade products worthy of time spent in capture-the-flag battles, red team engagements, or the world’s most hardened bug bounty programs.<br><br>
+
+    <em>Digital freedom, shared openly. Tactical advantage, delivered securely. All by a founder who’s already rewritten the rules.</em>
+  </p>
+</section>
+
+<!-- INTEL SECTION -->
+<section id="intel" class="section">
+  <h2 class="section-title">Intel</h2>
+
+  <div class="intel-container">
+    <!-- Site Update Log -->
+    <div class="site-updates">
+      <h3 class="intel-subtitle">Site Update Log</h3>
+      <ul class="update-list">
+        <!-- 
+          Manually add <li> entries here, for example:
+          <li><strong>[2025-06-04]</strong> Launched new “Guides” section.</li>
+          <li><strong>[2025-05-27]</strong> Added Intel page layout and community feed.</li>
+        -->
+        <li><strong>[2025-06-04]</strong> Fixed mobile nav clashes.</li>
+        <li><strong>[2025-06-04]</strong> Added product Info modals.</li>
+        <li><strong>[2025-06-04]</strong> Refined guide section layout.</li>
+        <li><strong>[2025-06-04]</strong> Launched new “Guides” section for tutorials.</li>
+        <li><strong>[2025-05-27]</strong> Enabled “News & Events” inside Intel page.</li>
+        <li><strong>[2025-05-15]</strong> Rolled out updated marketplace filtering options.</li>
+      </ul>
     </div>
-  </section>
 
-  <!-- MARKETPLACE SECTION -->
-  <section id="market" class="section">
-    <h2 class="section-title">Marketplace</h2>
-    <div class="products" id="products-grid">
-      <!-- JS will inject product cards here -->
+    <!-- Industry News & Events -->
+    <div class="news-feed">
+      <h3 class="intel-subtitle">Industry News & Events</h3>
+      <ul class="news-list">
+        <!-- 
+          Manually add items here, for example:
+          <li><strong>[2025-06-03]</strong> New zero-day vulnerability found in popular IoT camera firmware.</li>
+          <li><strong>[2025-06-01]</strong> DEF CON announces dates for 2025 — tickets now available.</li>
+        -->
+        <li><strong>[2025-06-03]</strong> PoC released for critical buffer overflow in XYZ router firmware.</li>
+        <li><strong>[2025-06-01]</strong> Black Hat USA 2025 abstracts are now published—see lineup at blackhat.com.</li>
+        <li><strong>[2025-05-28]</strong> New RISC-V rootkit demonstration at recent security summit.</li>
+      </ul>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ABOUT SECTION -->
-  <section id="about" class="section">
-    <h2 class="section-title">About the Founder</h2>
-    <p class="about-text">
-      Tornet Market was founded by an underground coder who turned their passion for digital dominance into a software empire.
-      Every product here is battle‑tested, born from years in the deep web, CTF tournaments, and corporate security exploits.
-      This isn’t just a market — it’s a movement.
-    </p>
-  </section>
 
-  <!-- CONTACT SECTION -->
-  <section id="contact" class="section">
-    <h2 class="section-title">Contact</h2>
-    <form id="contact-form" class="contact-form">
-      <label>
-        <span>Your Name:</span>
-        <input type="text" id="contact-name" placeholder="John Doe" required />
-      </label>
-      <label>
-        <span>Your Email:</span>
-        <input type="email" id="contact-email" placeholder="you@example.com" required />
-      </label>
-      <label>
-        <span>Message:</span>
-        <textarea id="contact-message" rows="4" placeholder="How can we help you?" required></textarea>
-      </label>
-      <button type="submit" class="btn btn-outline">Send Message</button>
-    </form>
-  </section>
+<!-- GUIDE SECTION -->
+<section id="guide" class="section">
+  <h2 class="section-title">Guides</h2>
+  <p class="about-text">
+    Explore, read, and download any documents you find useful. All information here is refreshed daily for maximum relevance.
+  </p>
+
+  <div class="guides-container" style="max-width: var(--max-width); margin: 0 auto 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+    <!-- Guide 1 -->
+    <div class="guide-card" style="background-color: var(--panel-dark); padding: 1rem; border: 1px solid var(--border-light); border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; height: 260px;">
+      <h3 style="color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem;">Introduction to Ethical Hacking</h3>
+      <p style="flex-grow: 1; font-size: 0.9rem; line-height: 1.4; margin-bottom: 1rem;">
+        A comprehensive beginner’s handbook covering the fundamentals of penetration testing, reconnaissance techniques, and basic exploit development.
+      </p>
+      <a href="docs/intro-to-ethical-hacking.pdf" download class="btn btn-outline" style="align-self: flex-start;">
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Guide 2 -->
+    <div class="guide-card" style="background-color: var(--panel-dark); padding: 1rem; border: 1px solid var(--border-light); border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; height: 260px;">
+      <h3 style="color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem;">IoT Security Essentials</h3>
+      <p style="flex-grow: 1; font-size: 0.9rem; line-height: 1.4; margin-bottom: 1rem;">
+        Detailed guide on securing Internet of Things devices—covering common vulnerabilities, hardening tips, and hands-on lab exercises.
+      </p>
+      <a href="docs/iot-security-essentials.pdf" download class="btn btn-outline" style="align-self: flex-start;">
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Guide 3 -->
+    <div class="guide-card" style="background-color: var(--panel-dark); padding: 1rem; border: 1px solid var(--border-light); border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; height: 260px;">
+      <h3 style="color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem;">JavaScript for Security Professionals</h3>
+      <p style="flex-grow: 1; font-size: 0.9rem; line-height: 1.4; margin-bottom: 1rem;">
+        Learn how to leverage JavaScript in web assessments: XSS testing, DOM manipulation, and building simple security tools in the browser.
+      </p>
+      <a href="docs/js-for-security-pros.pdf" download class="btn btn-outline" style="align-self: flex-start;">
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Guide 4 -->
+    <div class="guide-card" style="background-color: var(--panel-dark); padding: 1rem; border: 1px solid var(--border-light); border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; height: 260px;">
+      <h3 style="color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem;">Building Custom Pentest Tools in Python</h3>
+      <p style="flex-grow: 1; font-size: 0.9rem; line-height: 1.4; margin-bottom: 1rem;">
+        Step-by-step walkthrough for writing your own reconnaissance and exploitation scripts in Python, including network scanning and HTTP fuzzing.
+      </p>
+      <a href="docs/custom-pentest-tools-python.pdf" download class="btn btn-outline" style="align-self: flex-start;">
+        Download PDF
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact</h2>
+      <form id="contact-form" class="contact-form">
+        <label>
+          <span>Your Name:</span>
+          <input type="text" id="contact-name" placeholder="John Doe" required />
+        </label>
+        <label>
+          <span>Your Email:</span>
+          <input type="email" id="contact-email" placeholder="you@example.com" required />
+        </label>
+        <label>
+          <span>Message:</span>
+          <textarea id="contact-message" rows="4" placeholder="How can we help you?" required></textarea>
+        </label>
+        <button type="submit" class="btn btn-outline">Send Message</button>
+      </form>
+    </section>
+  </main>
 
   <!-- REQUEST MODAL -->
   <div id="request-modal" class="modal hidden">
@@ -127,11 +306,16 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2025 Tornet Market | All rights reserved.</p>
-  </footer>
+<!-- FOOTER -->
+<footer class="footer">
+  <p>
+    © 2025 
+    <span style="color: #40cfff; font-weight: bold;">Tornet Market</span>
+    &nbsp;|&nbsp;All rights reserved.
+  </p>
+</footer>
 
+  <!-- SCRIPT -->
   <script src="script.js"></script>
 </body>
 </html>
